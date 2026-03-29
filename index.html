@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SOUNDTAG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-image: url('ф.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: brightness(0.95);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sound-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            transition: transform 0.12s ease, filter 0.1s ease;
+            display: inline-block;
+            border-radius: 48px;
+        }
+
+        .sound-button:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+        }
+
+        .button-image {
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 48px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            .button-image {
+                max-width: 80vw;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="container">
+    <button class="sound-button" id="playSoundBtn">
+        <img src="к.png" alt="" class="button-image">
+    </button>
+</div>
+
+<script>
+    (function() {
+        const audio = new Audio('з.m4a');
+        audio.preload = 'auto';
+        audio.load();
+
+        const triggerButton = document.getElementById('playSoundBtn');
+
+        function playM4aSound(event) {
+            if (event) event.preventDefault?.();
+            audio.currentTime = 0;
+            audio.play().catch(error => {
+                console.warn('Ошибка воспроизведения:', error);
+            });
+        }
+
+        triggerButton.addEventListener('click', playM4aSound);
+        triggerButton.addEventListener('touchstart', playM4aSound, { passive: false });
+    })();
+</script>
+</body>
+</html>
